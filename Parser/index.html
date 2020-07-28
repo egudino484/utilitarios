@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Parser</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <link rel="shortcut icon" href="http://montran.com/wp-content/themes/rttheme6/images/favicon.png"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+    <h3 class="center-align">Parser the String</h3>
+        <div class="row container">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                      <textarea id="string" class="materialize-textarea"></textarea>
+                      <label for="string">String to Parser</label>
+                    </div>
+                    <div class="input-field col s12">
+                      <textarea id="result" class="materialize-textarea"></textarea>
+                    </div>
+                </div>    
+            </form>
+        </div>
+    <script>
+    $(document).ready(function(){
+        $("#string").keyup(function(){
+            otor = $("#string").val();
+            var newtext = otor;
+            newtext = newtext.replace(/Á/g,"\\u00c1");
+            newtext = newtext.replace(/É/g,"\\u00c9");
+            newtext = newtext.replace(/Í/g,"\\u00cd");
+            newtext = newtext.replace(/Ó/g,"\\u00d3");
+            newtext = newtext.replace(/Ú/g,"\\u00da");
+            newtext = newtext.replace(/á/g,"\\u00e1");
+            newtext = newtext.replace(/é/g,"\\u00e9");
+            newtext = newtext.replace(/í/g,"\\u00ed");
+            newtext = newtext.replace(/ó/g,"\\u00f3");
+            newtext = newtext.replace(/ú/g,"\\u00fa");
+            newtext = newtext.replace(/ñ/g,"\\u00f1");
+            newtext = newtext.replace(/Ñ/g,"\\u00d1");
+            newtext = newtext.replace(/¿/g,"\\u00bf");
+            newtext = newtext.replace(/¡/g,"\\u00a1");
+            $("#result").css("height",$("#string").css("height"));
+            $("#result").val(newtext);
+        });
+    });
+    </script>
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+</body>
+</html>
+<?php
+contador();
+function contador()
+{
+ // fichero donde se guardaran las visitas
+ $fichero = "visitas.txt";
+
+ $fptr = fopen($fichero,"r");
+
+ // sumamos una visita
+ $num = fread($fptr,filesize($fichero));
+ $num++;
+
+ $fptr = fopen($fichero,"w+");
+ fwrite($fptr,$num);
+
+ return $num;
+}
